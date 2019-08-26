@@ -1,0 +1,14 @@
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.csprojAssemblyReference.cache
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.csproj.CoreCompileInputs.cache
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.RazorAssemblyInfo.cache
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.RazorAssemblyInfo.cs
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.AssemblyInfoInputs.cache
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.AssemblyInfo.cs
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\bin\Debug\netcoreapp2.1\MuskeetApp.deps.json
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\bin\Debug\netcoreapp2.1\MuskeetApp.runtimeconfig.json
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\bin\Debug\netcoreapp2.1\MuskeetApp.runtimeconfig.dev.json
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\bin\Debug\netcoreapp2.1\MuskeetApp.dll
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\bin\Debug\netcoreapp2.1\MuskeetApp.pdb
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.RazorTargetAssemblyInfo.cache
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.dll
+C:\Users\Yura\MuskeetApp\MuskeetApp.API\obj\Debug\netcoreapp2.1\MuskeetApp.pdb

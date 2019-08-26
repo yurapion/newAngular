@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "userName": "Sam",
+        "city": "Kiev",
+        "postalCode": "152-12",
+        "email": "sam@gmail.com",
+        "country": "Ukraine"
+    },
+    {
+        "id": 2,
+        "userName": "Don",
+        "city": "Odessa",
+        "postalCode": "153-13",
+        "email": "don@gmail.com",
+        "country": "Ukraine"
+    }
+]

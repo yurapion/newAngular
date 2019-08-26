@@ -1,0 +1,54 @@
+[
+    {
+        "companyId": 1,
+        "companyName": "BestCars",
+        "tradeMarks": [
+            {
+                "tradeMarkId": 1,
+                "tradeMarkTittle": "Tesla",
+                "carWorkShopId": 1
+            },
+            {
+                "tradeMarkId": 2,
+                "tradeMarkTittle": "BMV",
+                "carWorkShopId": 1
+            }
+        ],
+        "city": "Kiev",
+        "postalCode": "152-12",
+        "country": "Ukraine"
+    },
+    {
+        "companyId": 2,
+        "companyName": "GoodCars",
+        "tradeMarks": [
+            {
+                "tradeMarkId": 1,
+                "tradeMarkTittle": "Tesla",
+                "carWorkShopId": 2
+            },
+            {
+                "tradeMarkId": 3,
+                "tradeMarkTittle": "Audi",
+                "carWorkShopId": 2
+            }
+        ],
+        "city": "Odessa",
+        "postalCode": "153-13",
+        "country": "Ukraine"
+    },
+    {
+        "companyId": 3,
+        "companyName": "FunMech",
+        "tradeMarks": [
+            {
+                "tradeMarkId": 4,
+                "tradeMarkTittle": "Nissan",
+                "carWorkShopId": 3
+            }
+        ],
+        "city": "Odessa",
+        "postalCode": "153-13",
+        "country": "Ukraine"
+    }
+]
