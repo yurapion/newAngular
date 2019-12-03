@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using MuskeetApp.API.Data;
 using MuskeetApp.API.Model;
 
@@ -20,10 +24,13 @@ namespace MuskeetApp.API.Controllers
 
         private readonly IMapper _mapper;
 
-        public UsersController(IMuskeetRepository repo, IMapper mapper)
+        private readonly IConfiguration _config;
+
+        public UsersController(IMuskeetRepository repo, IMapper mapper, IConfiguration config)
         {
             _mapper = mapper;
             _repo = repo;
+            _config = config;
         }
 
         [HttpPost("register")]
@@ -45,6 +52,7 @@ namespace MuskeetApp.API.Controllers
             var users = _repo.GetUsers();
             return Ok(users);
         }
+        
 
 
         [HttpGet("{id}")]
@@ -70,6 +78,50 @@ namespace MuskeetApp.API.Controllers
             var userToDelete = _repo.GetUser(id);
             _repo.DeleteUser(userToDelete);
             return Ok();
+        }
+
+        [HttpPost("login")]
+        public  IActionResult Login(User userForLogin)
+        {
+            // throw new Exception("Computer says now");
+            var userFromRepo =  _repo.Login(userForLogin.UserName.ToLower(), userForLogin.Password);
+            if (userFromRepo == null) return Unauthorized();
+
+            var claims = new[]
+            {
+              new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+              new Claim(ClaimTypes.Name, userFromRepo.UserName)
+          };
+
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8
+            .GetBytes(_config.GetSection("AppSettings:Token").Value));
+            
+             //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Hello my friendhow are you"));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescription = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = System.DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescription);
+
+           // var user = _mapper.Map<UserForListDto>(userFromRepo);
+            var user = userFromRepo;
+
+           return Ok(new
+           {
+               token = tokenHandler.WriteToken(token),
+               user
+           });
+
+
         }
 
     }

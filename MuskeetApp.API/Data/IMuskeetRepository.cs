@@ -5,6 +5,7 @@ namespace MuskeetApp.API.Data
 {
     public interface IMuskeetRepository
     {
+         
          void AddUser(User entity);   
          void DeleteUser(User entity);
          void AddCarWorkShop(CarWorkShop entity);   
@@ -12,6 +13,7 @@ namespace MuskeetApp.API.Data
          void AddAppointment(Appointment entity);   
          void DeleteAppointment(Appointment entity);
          bool SaveAll();
+         User Login(string username, string password);
          IEnumerable<User> GetUsers();
          User GetUser(int id);
          CarWorkShop GetCarWorkShop(int id);
@@ -21,6 +23,10 @@ namespace MuskeetApp.API.Data
          Appointment GetAppointment(int id);
          bool UserExsist(string username, string email);
          bool CarWorkShopExsist(string companyName);
+
+         IEnumerable<CarWorkShop> GetCarWorkShopsByCity(string city);
+
+
 
     }
 }

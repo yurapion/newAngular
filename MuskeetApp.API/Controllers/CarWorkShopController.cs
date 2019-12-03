@@ -44,6 +44,15 @@ namespace MuskeetApp.API.Controllers
             return Ok(carWorkShops);
         }
 
+        [HttpGet("bycity")]
+        public IActionResult GetCarWorkShopsByCity([FromQuery( Name= "city")] string city)
+        {
+            var City = HttpContext.Request.Query["city"];
+            var carWorkShops = _repo.GetCarWorkShopsByCity(City);
+            return Ok(carWorkShops);
+        }
+
+
 
         [HttpGet("{id}")]
         public IActionResult GetCarWorkShop(int id)

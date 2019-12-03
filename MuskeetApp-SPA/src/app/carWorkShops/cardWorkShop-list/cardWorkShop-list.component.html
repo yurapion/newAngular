@@ -1,0 +1,29 @@
+<!-- <div class="container mt-5"> 
+  <div class="row">
+    <div *ngFor="let carWorkShop of carWorkShops" class="col-lg-2 col-md-3 col-sm-6">
+      <app-carWorkShop-card [carWorkShop] = "carWorkShop"> </app-carWorkShop-card>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="checkout-page ">
+    <div class="checkout-header">
+      <div class="header-block">
+        <span>Logo</span>
+      </div>
+      <div class="header-block">
+        <span>Company</span>
+      </div>
+      <div class="header-block">
+        <span>City</span>
+      </div>
+      <div class="header-block">
+        <span>Trade marks</span>
+      </div>
+      <div class="header-block">
+        <span>Remove</span>
+      </div>
+    </div>
+     <app-carWorkShop-card *ngFor="let carWorkShop of carWorkShops" [carWorkShop] = "carWorkShop"> </app-carWorkShop-card>
+  </div>

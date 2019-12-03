@@ -5,4 +5,5 @@ export interface User {
     postalCode: string;
     email: string;
     country: string;
+    imageUrl?: string;
 }

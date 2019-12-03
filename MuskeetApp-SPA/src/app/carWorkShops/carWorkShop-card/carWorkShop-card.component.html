@@ -1,0 +1,48 @@
+<!-- <div class="card mb-4">
+  <div class="card-img-wrapper">
+    <img class= "card-img-top" src="https://loremflickr.com/320/240/car?random={{carWorkShop.companyId}}" alt="{{carWorkShop.companyName}}" [routerLink]="['/carWorkShops/', carWorkShop.id]">
+  </div>
+  <div class="card-body p-1">
+    <h6 class="card-tittle text-center-mb-1"><i class="fa fa-car"></i>
+      {{carWorkShop.companyName}}, {{carWorkShop.city}} 
+    </h6>
+    <p class="card-text text-muted text-center">{{carWorkShop.city}} </p>
+  <p class="text-center">Car Trade Mark</p> -->
+
+    <!-- <select [(ngModel)]="carWorkShop" id="category">
+        <option value="" disabled selected>>select an option</option>
+        <option *ngFor="let trademark of carWorkShop.tradeMarks " [value]="trademark.tradeMarkTittle">{{trademark.tradeMarkTittle}}</option>
+      </select> -->
+
+      <!-- <p *ngFor="let trademark of carWorkShop.tradeMarks" >{{trademark.tradeMarkTittle}}</p>
+  </div>
+</div> -->
+
+
+
+    <div class="checkout-item" >
+
+        <div class="image-container" [routerLink]="['/carworkshop/edit/', carWorkShop.companyId]">
+          <img src="https://loremflickr.com/320/240/car?random={{carWorkShop.companyId}}" alt="{{carWorkShop.companyName}}"  />
+        </div>
+    
+        <span class="name">{{carWorkShop.companyName}}</span>
+    
+        <span class="quantity">
+          {{carWorkShop.city}}
+        </span>
+    
+       
+        
+        <div class="price">
+            <span class="test" *ngFor="let trademark of carWorkShop.tradeMarks">{{trademark.tradeMarkTittle}}</span>
+        </div>
+         
+        
+        <div  class="remove-button" (click)="delete()">
+            &#10005;
+        </div>
+    
+      </div>
+    
+

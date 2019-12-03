@@ -1,0 +1,11 @@
+<div class="card mb-4">
+  <div class="card-img-wrapper">
+    <img class= "card-img-top" src="{{ user.imageUrl || '../../../assets/user.png'}}" alt="{{user.userName}}" [routerLink]="['/members/', user.id]">
+  </div>
+  <div class="card-body p-1">
+    <h6 class="card-tittle text-center-mb-1"><i class="fa fa-user"></i>
+      {{user.userName}}, {{user.postalCode}} 
+    </h6>
+    <p class="card-text text-muted text-center">{{user.city}}</p>
+  </div>
+</div>

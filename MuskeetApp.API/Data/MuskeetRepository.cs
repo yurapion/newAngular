@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using MuskeetApp.API.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using MuskeetApp.API.Helpers;
 
 namespace MuskeetApp.API.Data
 {
     public class MuskeetRepository : IMuskeetRepository
     {
-        
+
         private static MuskeetContext _context;
         public MuskeetRepository()
         {
@@ -25,7 +26,7 @@ namespace MuskeetApp.API.Data
         public static MuskeetContext GetContextJson()
         {
             if (_context == null)
-            { 
+            {
                 _context = new MuskeetContext();
                 SeedUsers();
                 SeedCarWorkShops();
@@ -33,15 +34,16 @@ namespace MuskeetApp.API.Data
             }
             return _context;
         }
-        
+
         //Singleton
         public static MuskeetContext GetContext()
         {
 
-             if (_context == null)
-            { 
-                    _context = new MuskeetContext{
-                Users = new List<User>{
+            if (_context == null)
+            {
+                _context = new MuskeetContext
+                {
+                    Users = new List<User>{
                     new User{
                         Id =1, UserName = "Sam", City = "Kiev", PostalCode = "152-12", Email = "sam@gmail.com", Country= "Ukraine"},
 
@@ -49,41 +51,41 @@ namespace MuskeetApp.API.Data
                         Id =2, UserName = "Don", City = "Odessa", PostalCode = "153-13", Email = "don@gmail.com", Country= "Ukraine"}
                 },
 
-                Appointments = new List<Appointment>{
-                    new Appointment{ 
+                    Appointments = new List<Appointment>{
+                    new Appointment{
                         AppointmentId = 1, UserName = "Sam", TradeMark = "BMV", CompanyName = "BestCars", Date = DateTime.Now}
                 },
 
-                CarWorkShops = new List<CarWorkShop> {
+                    CarWorkShops = new List<CarWorkShop> {
                    new CarWorkShop{
-                    CompanyId = 1,CompanyName = "BestCars", 
-                    TradeMarks = new List<TradeMark>{ 
+                    CompanyId = 1,CompanyName = "BestCars",
+                    TradeMarks = new List<TradeMark>{
                         new TradeMark{TradeMarkId = 1, TradeMarkTittle = "Tesla", CarWorkShopId = 1},
                         new TradeMark{TradeMarkId = 2, TradeMarkTittle = "BMV", CarWorkShopId = 1}
                    }, City = "Kiev", PostalCode = "152-12", Country = "Ukraine"},
 
                 new CarWorkShop{
                 CompanyId = 2,CompanyName = "GoodCars",
-                  TradeMarks = new List<TradeMark>{ 
+                  TradeMarks = new List<TradeMark>{
                       new TradeMark{TradeMarkId = 1, TradeMarkTittle = "Tesla", CarWorkShopId = 2},
                       new TradeMark{TradeMarkId = 3, TradeMarkTittle = "Audi", CarWorkShopId = 2}
                 }, City = "Odessa", PostalCode = "153-13", Country = "Ukraine"},
 
                 new CarWorkShop{
                 CompanyId = 3,CompanyName = "FunMech",
-                  TradeMarks = new List<TradeMark>{ 
+                  TradeMarks = new List<TradeMark>{
                       new TradeMark{TradeMarkId = 4, TradeMarkTittle = "Nissan", CarWorkShopId = 3}
                 }, City = "Odessa", PostalCode = "153-13", Country = "Ukraine"}
                 }
-              };
+                };
             }
-            
+
             return _context;
         }
-        
+
         public static void SeedUsers()
         {
-             var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
+            var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
             var users = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(userData);
             _context.Users = new List<User>();
             foreach (var user in users)
@@ -96,7 +98,7 @@ namespace MuskeetApp.API.Data
 
         public static void SeedCarWorkShops()
         {
-                var CarWorkShopData = System.IO.File.ReadAllText("Data/CarWorkShopSeedData.json");
+            var CarWorkShopData = System.IO.File.ReadAllText("Data/CarWorkShopSeedData.json");
             var CarWorkShops = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CarWorkShop>>(CarWorkShopData);
             _context.CarWorkShops = new List<CarWorkShop>();
             foreach (var carWorkShop in CarWorkShops)
@@ -115,20 +117,37 @@ namespace MuskeetApp.API.Data
                 _context.Appointments.Add(appointment);
             }
         }
-        
+
 
         public void AddAppointment(Appointment entity)
         {
+            var firstAppointment = _context.Appointments.OrderByDescending(u => u.AppointmentId).First();
+            entity.AppointmentId = firstAppointment.AppointmentId + 1;
             _context.Appointments.Add(entity);
         }
 
         public void AddCarWorkShop(CarWorkShop entity)
         {
-           _context.CarWorkShops.Add(entity);
+            var firstCarWorkShop = _context.CarWorkShops.OrderByDescending(u => u.CompanyId).First();
+            entity.CompanyId = firstCarWorkShop.CompanyId + 1;
+            _context.CarWorkShops.Add(entity);
         }
 
+        public  User Login(string username, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserName == username);
+
+           if (user == null) return null;
+
+           if(user.Password != password) return null;
+            // var user = new User();
+            return user;
+        }
         public void AddUser(User entity)
         {
+            // _context.Users.OrderByDescending(u => u.Id).Sort((x,y) => x.Id.CompareTo(y.Id));
+            var firstUser = _context.Users.OrderByDescending(u => u.Id).First();
+            entity.Id = firstUser.Id + 1;
             _context.Users.Add(entity);
         }
 
@@ -147,24 +166,24 @@ namespace MuskeetApp.API.Data
             _context.Users.Remove(entity);
         }
 
-        public  Appointment GetAppointment(int id)
+        public Appointment GetAppointment(int id)
         {
-            var appointment =  _context.Appointments.FirstOrDefault(a => a.AppointmentId == id);
+            var appointment = _context.Appointments.FirstOrDefault(a => a.AppointmentId == id);
 
             return appointment;
-            
+
         }
 
         public CarWorkShop GetCarWorkShop(int id)
         {
-           var carWorkShop = _context.CarWorkShops.FirstOrDefault(c => c.CompanyId == id);
-           return carWorkShop;
+            var carWorkShop = _context.CarWorkShops.FirstOrDefault(c => c.CompanyId == id);
+            return carWorkShop;
         }
 
         public User GetUser(int id)
         {
-           
-            var user =  _context.Users.FirstOrDefault(u => u.Id == id);
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
             return user;
         }
 
@@ -181,7 +200,7 @@ namespace MuskeetApp.API.Data
 
         public bool UserExsist(string username, string email)
         {
-            if (_context.Users.Any(u => u.UserName == username) || _context.Users.Any(u => u.Email == email))  return true;
+            if (_context.Users.Any(u => u.UserName == username) || _context.Users.Any(u => u.Email == email)) return true;
 
             return false;
         }
@@ -202,7 +221,7 @@ namespace MuskeetApp.API.Data
 
         public IEnumerable<CarWorkShop> GetListCarWorkShops()
         {
-            var listCarWorkShops =  _context.CarWorkShops;
+            var listCarWorkShops = _context.CarWorkShops;
             return listCarWorkShops;
         }
 
@@ -210,6 +229,12 @@ namespace MuskeetApp.API.Data
         {
             var appointments = _context.Appointments;
             return appointments;
+        }
+
+        public IEnumerable<CarWorkShop> GetCarWorkShopsByCity(string city)
+        {
+            var carWorkShopsByCity = _context.CarWorkShops.Where(c => c.City == city);
+            return carWorkShopsByCity;
         }
     }
 }
