@@ -11,6 +11,7 @@ import { CardWorkShopListComponent } from './carWorkShops/cardWorkShop-list/card
 import { CarWorkShopListResolver } from './_resolvers/carworkshop-list.resolver';
 import { CarWorkShopEditResolver } from './_resolvers/carworkshop-edit.resolver';
 import { CarWorkShopEditComponent } from './carWorkShops/carWorkShop-edit/carWorkShop-edit.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
 export const appRoutes: Routes = [
@@ -26,7 +27,7 @@ export const appRoutes: Routes = [
             resolve: {user: MemberDetailResolver}},
 
             {path: 'member/edit/:id', component: MemberEditComponent,
-             resolve: {user: MemberEditResolver}},
+             resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
 
             {path: 'carworkshops', component: CardWorkShopListComponent,
             resolve: {carWorkShops: CarWorkShopListResolver}},

@@ -1,3 +1,50 @@
-<p>
-  member-edit works!
-</p>
+
+  <div class="row d-flex justify-content-center">
+      <div class="col-md-3">
+          <h1>{{ user?.userName.toUpperCase() }}'s Profile</h1>
+        <div class="card">
+          <img
+            class="card-img-top img-thumbnail"
+            src="{{ user?.imageUrl || '../../../assets/user.png' }}"
+            alt="{{ user?.userName }}"
+          />
+          <div class="card-body">
+
+              <form #editForm="ngForm" id="editForm" (ngSubmit)="update()">
+            <div>
+              <strong>City:</strong>
+              <textarea  name="city"  rows="1" class="form-control"
+              [(ngModel)]="user.city"></textarea>
+            </div>
+
+            <div>
+                <strong>Country:</strong>
+                <textarea  name="country"  rows="1" class="form-control"
+                [(ngModel)]="user.country"></textarea>
+            </div>
+  
+            <div>
+              <strong>Email:</strong>
+              <textarea  name="email"  rows="1" class="form-control"
+                [(ngModel)]="user.email"></textarea>
+            </div>
+  
+            <div>
+              <strong>Postal code:</strong>
+              <textarea  name="postalCode"  rows="1" class="form-control"
+                [(ngModel)]="user.postalCode"></textarea>
+            </div>
+          </form>
+          </div>
+       
+
+          <div class="card-footer">
+            <div class="btn-group d-flex">
+              <button [disabled] ="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Update User</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  

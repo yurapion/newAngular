@@ -22,7 +22,7 @@ export class NavComponent implements OnInit {
     this.muskeetService.login(this.model).subscribe(next => {
       this.alertifyService.success('Logged in sucessfuly');
     }, error => {
- this.alertifyService.error(error);
+      this.alertifyService.error(`${error.statusText}, check password or username`);
     }, () => {
       this.photoUrl = this.muskeetService.currentUser.imageUrl;
       this.id = this.muskeetService.currentUser.id;

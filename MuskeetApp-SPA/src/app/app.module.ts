@@ -28,6 +28,7 @@ import { appRoutes } from './routes';
 import {RouterModule} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
 
@@ -78,7 +79,8 @@ export function tokenGetter() {
       MemberListResolver,
       MemberEditResolver,
       CarWorkShopListResolver,
-      CarWorkShopEditResolver
+      CarWorkShopEditResolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent
